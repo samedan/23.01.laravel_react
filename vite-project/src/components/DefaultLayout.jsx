@@ -11,7 +11,7 @@ export default function DefaultLayout() {
 
     return (
         <div>
-            DefaultLayout HIOHJOIPJ
+            DefaultLayout
             <Outlet />
         </div>
     );
