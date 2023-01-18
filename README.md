@@ -2,9 +2,18 @@
 
 https://www.youtube.com/watch?v=qJq9ZMB2Was&t=183s
 
+> Initial Git :
+> https://github.com/thecodeholic/laravel-react-starter
+
+## This Git
+
+https://github.com/samedan/23.01.laravel_react
+
 ## React installed with vite in
 
 > /vite-project/
+
+> > Changed Vite settings in order to reload on Windows - vite.config.js
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
