@@ -19,9 +19,14 @@ https://github.com/samedan/23.01.laravel_react
 
 > php artisan make:controller Api/UserController --model=User --requests --resource --api
 
-## Covert DBB models into JSON serializable data
+## Convert DBB models into JSON serializable data
 
 > php artisan make:resource UserResource
+
+## Seed Users into DBB
+
+> edit: DatabaseSeeder.pho
+> php partisan db::seed
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
