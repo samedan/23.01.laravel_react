@@ -25,19 +25,19 @@ class AuthController extends Controller
         return response(compact('user', 'token'));
     }
     
-    public function login(LoginRequest $request) {
+    public function login(LoginRequest $request)
+    {
         $credentials = $request->validated();
-        if(!Auth::attempt($credentials)) {
+        if (!Auth::attempt($credentials)) {
             return response([
-                'message' => 'Invalid login credentials'
-        ]);
-        /** @var User $user */
-        $user = Auth::user();
-        $token = $user->craeteToken('main')->plainTextToken;
-        return response(compact('user','token'));
-
+                'message' => 'Provided email or password is incorrect'
+            ], 422);
         }
-        
+
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+        $token = $user->createToken('main')->plainTextToken;
+        return response(compact('user', 'token'));
     }
 
     public function logout(Request $request) {
