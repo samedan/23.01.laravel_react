@@ -30,9 +30,9 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $data = $requets->validated();
+        $data = $request->validated();
         $data['password'] = bcrypt($data['password']);
-        User::create($data);
+        $user = User::create($data);
         return response(new UserResource($user), 201);
 
     }
