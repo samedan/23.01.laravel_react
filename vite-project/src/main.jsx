@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider } from "react-router-dom";
 import { ContextProvider } from "./contexts/ContextProvider";
+import "./assets/bootstrap.min.css";
 import "./index.css";
 import router from "./router";
 

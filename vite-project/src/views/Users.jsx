@@ -6,27 +6,34 @@ import axiosClient from "./../axios-client";
 export default function Users() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [paginationPages, setPaginationPages] = useState(null);
+    const [pageNumber, setPageNumber] = useState(1);
+    const [lastPage, setLastPage] = useState(1);
 
     const { setNotification } = useStateContext();
 
     useEffect(() => {
         getUsers();
-    }, []);
+    }, [pageNumber]);
 
     const getUsers = () => {
         setLoading(true);
         axiosClient
-            .get("/users")
+            .get(`/users?page=${pageNumber}`)
             .then(({ data }) => {
                 setUsers(data.data);
                 setLoading(false);
-                console.log(data);
+                setPaginationPages(data.meta);
+                setLastPage(data.meta.last_page);
+                console.log(data.meta);
+                console.log({ pageNumber });
+                console.log(lastPage);
             })
             .catch(() => setLoading(false));
     };
 
     const onDelete = (u) => {
-        if (!window.confirm("Are you sure you want his user?")) {
+        if (!window.confirm("Are you sure you want to delete this user?")) {
             return;
         } else {
             axiosClient.delete(`/users/${u.id}`).then(() => {
@@ -35,6 +42,7 @@ export default function Users() {
             });
         }
     };
+
     return (
         <div>
             <div
@@ -94,6 +102,97 @@ export default function Users() {
                                     </td>
                                 </tr>
                             ))}
+
+                            <tr>
+                                <td colSpan={5} className="text-center">
+                                    <div className="pagination">
+                                        {
+                                            <button
+                                                className={`page-number`}
+                                                onClick={() => setPageNumber(1)}
+                                            >
+                                                <p>{"<|"}</p>
+                                            </button>
+                                        }
+                                        {pageNumber === 1 ? (
+                                            <p>{"< Previous "}</p>
+                                        ) : (
+                                            <button
+                                                className={`page-number`}
+                                                onClick={() =>
+                                                    setPageNumber(
+                                                        pageNumber - 1
+                                                    )
+                                                }
+                                            >
+                                                <p>{"< Previous "}</p>
+                                            </button>
+                                        )}
+                                        {/* <PaginatedItems itemsPerPage={4} /> */}
+                                        {paginationPages &&
+                                            paginationPages !== undefined &&
+                                            paginationPages.links.map(
+                                                (link) => {
+                                                    if (link.url !== null) {
+                                                        if (
+                                                            link.label ===
+                                                                "&laquo; Previous" ||
+                                                            link.label ===
+                                                                "Next &raquo;"
+                                                        ) {
+                                                            return null;
+                                                        }
+                                                        return (
+                                                            <button
+                                                                className={`page-number ${
+                                                                    link.active &&
+                                                                    "active"
+                                                                } `}
+                                                                onClick={() =>
+                                                                    setPageNumber(
+                                                                        parseInt(
+                                                                            link.label,
+                                                                            10
+                                                                        )
+                                                                    )
+                                                                }
+                                                            >
+                                                                <p>
+                                                                    {" "}
+                                                                    {link.label}
+                                                                </p>
+                                                            </button>
+                                                        );
+                                                    }
+                                                }
+                                            )}
+                                        {pageNumber === lastPage ? (
+                                            <p>{"Next >"}</p>
+                                        ) : (
+                                            <button
+                                                className={`page-number`}
+                                                onClick={() =>
+                                                    setPageNumber(
+                                                        pageNumber + 1
+                                                    )
+                                                }
+                                            >
+                                                <p>{"Next >"}</p>
+                                            </button>
+                                        )}
+                                        {
+                                            <button
+                                                className={`page-number`}
+                                                onClick={() =>
+                                                    setPageNumber(lastPage)
+                                                }
+                                            >
+                                                <p>{"|>"}</p>
+                                            </button>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     )}
                 </table>
