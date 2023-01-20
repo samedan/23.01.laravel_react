@@ -5,6 +5,11 @@ https://www.youtube.com/watch?v=qJq9ZMB2Was&t=183s
 > Initial Git :
 > https://github.com/thecodeholic/laravel-react-starter
 
+## deploy
+
+/public_html/react-php. - Frontend react
+react-laravel. - Backend Laravel
+
 ## This Git
 
 https://github.com/samedan/23.01.laravel_react
